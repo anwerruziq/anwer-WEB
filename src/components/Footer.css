@@ -1,0 +1,34 @@
+.footer {
+    background: var(--bg-primary);
+    padding: var(--spacing-xl) 0;
+    border-top: 1px solid var(--glass-border);
+}
+
+.footer-content {
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.footer-subtitle {
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+}
+
+@media (max-width: 767px) {
+    .footer {
+        padding: var(--spacing-lg) 0;
+    }
+
+    .footer-text {
+        font-size: 0.9375rem;
+    }
+
+    .footer-subtitle {
+        font-size: 0.8125rem;
+    }
+}

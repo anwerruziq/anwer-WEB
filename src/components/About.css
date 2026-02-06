@@ -1,0 +1,38 @@
+.about {
+    background: var(--bg-secondary);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    font-size: clamp(2rem, 5vw, 3rem);
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.about-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.about-text p {
+    font-size: clamp(1rem, 2vw, 1.125rem);
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.about-text strong {
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+    .about-text {
+        gap: var(--spacing-sm);
+    }
+}

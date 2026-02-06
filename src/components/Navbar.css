@@ -1,0 +1,242 @@
+.navbar {
+    position: fixed;
+    text-decoration: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    padding: var(--spacing-md) 0;
+    transition: all var(--transition-base);
+    background: transparent;
+}
+
+.navbar.scrolled {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    transition: transform var(--transition-fast);
+}
+
+.logo-img {
+    height: 65px;
+    /* Reduced to a more balanced size */
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-logo:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--text-primary);
+    font-weight: 500;
+    text-decoration: none;
+    font-size: 0.9375rem;
+    position: relative;
+    transition: color var(--transition-fast);
+    padding: 0.5rem 0;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-gradient);
+    transition: width var(--transition-base);
+}
+
+.nav-links a:hover {
+    color: var(--accent-primary);
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Hamburger */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1001;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--text-primary);
+    border-radius: 3px;
+    transition: all var(--transition-base);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(8px, 8px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+}
+
+/* Mobile Menu Redesign: Centered with Logo */
+.mobile-menu {
+    position: fixed;
+    top: -100%;
+    /* Slide from top */
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+    /* Rely on overlay for background/blur */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-lg);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.mobile-menu.active {
+    top: 0;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+}
+
+.mobile-menu-logo {
+    margin-bottom: var(--spacing-2xl);
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: all 0.5s ease 0.2s;
+}
+
+.mobile-menu.active .mobile-menu-logo {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.mobile-nav-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    text-align: center;
+    width: 100%;
+}
+
+.mobile-nav-links a {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    /* Larger font for centered menu */
+    font-weight: 700;
+    text-decoration: none;
+    padding: var(--spacing-sm);
+    transition: all var(--transition-fast);
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.mobile-menu.active .mobile-nav-links a {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered entrance for links */
+.mobile-menu.active .mobile-nav-links li:nth-child(1) a {
+    transition-delay: 0.3s;
+}
+
+.mobile-menu.active .mobile-nav-links li:nth-child(2) a {
+    transition-delay: 0.4s;
+}
+
+.mobile-menu.active .mobile-nav-links li:nth-child(3) a {
+    transition-delay: 0.5s;
+}
+
+.mobile-menu.active .mobile-nav-links li:nth-child(4) a {
+    transition-delay: 0.6s;
+}
+
+
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 998;
+}
+
+.nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Desktop only */
+.desktop-nav {
+    display: flex;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .logo-img {
+        height: 40px;
+        /* Reduced further for mobile */
+    }
+
+    .desktop-nav {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-menu {
+        display: none;
+    }
+}

@@ -1,0 +1,273 @@
+.hero {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-primary);
+}
+
+.hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Spline 3D Model - Main content flow like the reference */
+.spline-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+.spline-container.loaded {
+    opacity: 1;
+}
+
+.spline-container iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    pointer-events: auto;
+}
+
+/* Floating text overlay - Absolute inset-0 like the reference */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    pointer-events: none;
+    /* Crucial: allows interaction with Spline behind text */
+}
+
+.hero-content {
+    text-align: center;
+    padding: var(--spacing-xl);
+    pointer-events: none;
+}
+
+.hero-text,
+.hero-name,
+.hero-title,
+.hero-tagline {
+    pointer-events: none;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    pointer-events: auto;
+    /* Re-enable for buttons */
+    margin-top: var(--spacing-xl);
+}
+
+.hero-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 15;
+}
+
+.loader-ring {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.hero-name {
+    font-size: clamp(2.5rem, 10vw, 6rem);
+    font-weight: 900;
+    margin-bottom: var(--spacing-xs);
+    letter-spacing: 5px;
+    /* Techy spacing */
+    line-height: 1;
+    color: var(--text-primary);
+    font-family: 'Orbitron', sans-serif;
+    /* Digital/Tech Font */
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    text-transform: uppercase;
+}
+
+
+.hero-name .dot {
+    color: var(--accent-secondary);
+}
+
+.hero-title {
+    font-size: clamp(1.25rem, 4vw, 2.5rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-md);
+    letter-spacing: 1px;
+}
+
+.hero-tagline {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-tertiary);
+    margin-bottom: var(--spacing-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Inverse Glowing Button - Light BG, Dark Text */
+.btn-glow-inverse {
+    --glow-color: rgba(255, 255, 255, 0.4);
+    --glow-spread-color: rgba(255, 255, 255, 0.1);
+    --enhanced-glow-color: #ffffff;
+    --btn-color: #ffffff;
+    /* Inverse: Light BG */
+    border: .25em solid #ffffff;
+    padding: 1em 3em;
+    color: #111111;
+    /* Inverse: Dark Text */
+    font-size: 15px;
+    font-weight: bold;
+    background-color: var(--btn-color);
+    border-radius: 1em;
+    outline: none;
+    box-shadow: 0 0 1em .25em var(--glow-color),
+        0 0 2em .5em var(--glow-spread-color);
+    position: relative;
+    transition: all 0.3s;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    font-family: 'Almarai', sans-serif;
+}
+
+.btn-glow-inverse::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 110%;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--glow-spread-color);
+    filter: blur(2em);
+    opacity: .5;
+    transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
+}
+
+.btn-glow-inverse:hover {
+    color: #ffffff;
+    background-color: #111111;
+    border-color: #ffffff;
+    box-shadow: 0 0 1.5em .5em rgba(255, 255, 255, 0.4);
+}
+
+.btn-glow-inverse:active {
+    transform: scale(0.95);
+}
+
+/* Glowing Button - Monochromatic Adaptation */
+.btn-glow {
+    --glow-color: rgba(255, 255, 255, 0.8);
+    --glow-spread-color: rgba(255, 255, 255, 0.2);
+    --enhanced-glow-color: #ffffff;
+    --btn-color: #111111;
+    border: .25em solid var(--glow-color);
+    padding: 1em 3em;
+    color: var(--glow-color);
+    font-size: 15px;
+    font-weight: bold;
+    background-color: var(--btn-color);
+    border-radius: 1em;
+    outline: none;
+    box-shadow: 0 0 1em .25em var(--glow-color),
+        0 0 4em 1em var(--glow-spread-color),
+        inset 0 0 .75em .25em var(--glow-color);
+    text-shadow: 0 0 .5em var(--glow-color);
+    position: relative;
+    transition: all 0.3s;
+    cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
+    font-family: 'Almarai', sans-serif;
+}
+
+.btn-glow::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 120%;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--glow-spread-color);
+    filter: blur(2em);
+    opacity: .7;
+    transform: perspective(1.5em) rotateX(35deg) scale(1, .6);
+}
+
+.btn-glow:hover {
+    color: var(--btn-color);
+    background-color: var(--glow-color);
+    box-shadow: 0 0 1em .25em var(--glow-color),
+        0 0 4em 2em var(--glow-spread-color),
+        inset 0 0 .75em .25em var(--glow-color);
+}
+
+.btn-glow:active {
+    box-shadow: 0 0 0.6em .25em var(--glow-color),
+        0 0 2.5em 2em var(--glow-spread-color),
+        inset 0 0 .5em .25em var(--glow-color);
+    transform: scale(0.95);
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+    .hero-buttons {
+        flex-direction: row;
+        /* Back to row */
+        width: 100%;
+        max-width: 350px;
+        margin: 0 auto;
+        gap: 0.8rem;
+        /* Tighter gap for side-by-side */
+        justify-content: center;
+    }
+
+    .hero-buttons .btn,
+    .hero-buttons .btn-glow,
+    .hero-buttons .btn-glow-inverse {
+        width: auto;
+        /* Allow side-by-side */
+        flex: 1;
+        /* Equal width */
+        padding: 0.7rem 1rem;
+        /* Even smaller padding for tight fit */
+        font-size: 13px;
+        /* Slightly smaller font */
+        white-space: nowrap;
+        /* Prevent text wrap */
+    }
+
+    .hero-content {
+        width: 90%;
+        padding: var(--spacing-lg);
+    }
+}

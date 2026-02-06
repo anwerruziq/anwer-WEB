@@ -1,0 +1,533 @@
+.skills {
+    background: var(--bg-primary);
+    padding: var(--spacing-3xl) 0;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: var(--spacing-xl);
+    justify-items: center;
+}
+
+.highlight-text {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* From Uiverse.io by 00Kubi - Adapted for Monochromatic Premium */
+.skill-container {
+    position: relative;
+    width: 260px;
+    height: 340px;
+    transition: 200ms;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.skill-container.reveal-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.skill-container:active {
+    width: 250px;
+    height: 330px;
+}
+
+#card {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+    transition: 700ms;
+    background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.card-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+#prompt {
+    bottom: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    transition: 300ms ease-in-out;
+    position: absolute;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.6);
+    width: 90%;
+}
+
+.title {
+    opacity: 0;
+    transition: 400ms cubic-bezier(0.23, 1, 0.32, 1);
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.15));
+}
+
+.skill-icon-large {
+    font-size: 5.5rem;
+    filter: grayscale(100%);
+}
+
+.subtitle {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    text-align: center;
+    font-size: 10px;
+    letter-spacing: 2px;
+    transform: translateY(40px);
+    color: rgba(255, 255, 255, 0.4);
+    transition: 400ms ease;
+    opacity: 0;
+}
+
+.highlight {
+    display: block;
+    color: #ffffff;
+    margin-top: 5px;
+    font-weight: 800;
+    opacity: 0.6;
+}
+
+.glowing-elements {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.glow-1,
+.glow-2,
+.glow-3 {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    filter: blur(15px);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.glow-1 {
+    top: -10px;
+    left: -10px;
+}
+
+.glow-2 {
+    top: 50%;
+    right: -20px;
+    transform: translateY(-50%);
+}
+
+.glow-3 {
+    bottom: -10px;
+    left: 30%;
+}
+
+.card-particles span {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Hover effects */
+.tracker:hover~#card .title {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+.tracker:hover~#card .subtitle {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tracker:hover~#card .glowing-elements div {
+    opacity: 1;
+}
+
+.tracker:hover~#card .card-particles span {
+    animation: particleFloat 2s infinite;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translate(calc(var(--x, 0) * 30px), calc(var(--y, 0) * 30px));
+        opacity: 0;
+    }
+}
+
+/* Particle positions */
+.card-particles span:nth-child(1) {
+    --x: 1;
+    --y: -1;
+    top: 40%;
+    left: 20%;
+}
+
+.card-particles span:nth-child(2) {
+    --x: -1;
+    --y: -1;
+    top: 60%;
+    right: 20%;
+}
+
+.card-particles span:nth-child(3) {
+    --x: 0.5;
+    --y: 1;
+    top: 20%;
+    left: 40%;
+}
+
+.card-particles span:nth-child(4) {
+    --x: -0.5;
+    --y: 1;
+    top: 80%;
+    right: 40%;
+}
+
+.card-particles span:nth-child(5) {
+    --x: 1;
+    --y: 0.5;
+    top: 30%;
+    left: 60%;
+}
+
+.card-particles span:nth-child(6) {
+    --x: -1;
+    --y: 0.5;
+    top: 70%;
+    right: 60%;
+}
+
+#card::before {
+    content: "";
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+    filter: blur(20px);
+    opacity: 0;
+    width: 150%;
+    height: 150%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease;
+}
+
+.tracker:hover~#card::before {
+    opacity: 1;
+}
+
+.tracker {
+    position: absolute;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+}
+
+.tracker:hover~#card #prompt {
+    opacity: 0;
+}
+
+.tracker:hover~#card {
+    filter: brightness(1.2);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.canvas {
+    perspective: 1000px;
+    inset: 0;
+    z-index: 200;
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+}
+
+/* 3D Rotation Grid */
+.tr-1:hover~#card {
+    transform: rotateX(20deg) rotateY(-10deg);
+}
+
+.tr-2:hover~#card {
+    transform: rotateX(20deg) rotateY(-5deg);
+}
+
+.tr-3:hover~#card {
+    transform: rotateX(20deg) rotateY(0deg);
+}
+
+.tr-4:hover~#card {
+    transform: rotateX(20deg) rotateY(5deg);
+}
+
+.tr-5:hover~#card {
+    transform: rotateX(20deg) rotateY(10deg);
+}
+
+.tr-6:hover~#card {
+    transform: rotateX(10deg) rotateY(-10deg);
+}
+
+.tr-7:hover~#card {
+    transform: rotateX(10deg) rotateY(-5deg);
+}
+
+.tr-8:hover~#card {
+    transform: rotateX(10deg) rotateY(0deg);
+}
+
+.tr-9:hover~#card {
+    transform: rotateX(10deg) rotateY(5deg);
+}
+
+.tr-10:hover~#card {
+    transform: rotateX(10deg) rotateY(10deg);
+}
+
+.tr-11:hover~#card {
+    transform: rotateX(0deg) rotateY(-10deg);
+}
+
+.tr-12:hover~#card {
+    transform: rotateX(0deg) rotateY(-5deg);
+}
+
+.tr-13:hover~#card {
+    transform: rotateX(0deg) rotateY(0deg);
+}
+
+.tr-14:hover~#card {
+    transform: rotateX(0deg) rotateY(5deg);
+}
+
+.tr-15:hover~#card {
+    transform: rotateX(0deg) rotateY(10deg);
+}
+
+.tr-16:hover~#card {
+    transform: rotateX(-10deg) rotateY(-10deg);
+}
+
+.tr-17:hover~#card {
+    transform: rotateX(-10deg) rotateY(-5deg);
+}
+
+.tr-18:hover~#card {
+    transform: rotateX(-10deg) rotateY(0deg);
+}
+
+.tr-19:hover~#card {
+    transform: rotateX(-10deg) rotateY(5deg);
+}
+
+.tr-20:hover~#card {
+    transform: rotateX(-10deg) rotateY(10deg);
+}
+
+.tr-21:hover~#card {
+    transform: rotateX(-20deg) rotateY(-10deg);
+}
+
+.tr-22:hover~#card {
+    transform: rotateX(-20deg) rotateY(-5deg);
+}
+
+.tr-23:hover~#card {
+    transform: rotateX(-20deg) rotateY(0deg);
+}
+
+.tr-24:hover~#card {
+    transform: rotateX(-20deg) rotateY(5deg);
+}
+
+.tr-25:hover~#card {
+    transform: rotateX(-20deg) rotateY(10deg);
+}
+
+.noselect {
+    user-select: none;
+}
+
+.card-glare {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(125deg, transparent 0%, rgba(255, 255, 255, 0.05) 45%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 55%, transparent 100%);
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+.tracker:hover~#card .card-glare {
+    opacity: 1;
+}
+
+.cyber-lines span {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.cyber-lines span:nth-child(1) {
+    top: 20%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    animation: lineGrow 3s linear infinite;
+}
+
+.cyber-lines span:nth-child(2) {
+    top: 40%;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    animation: lineGrow 3s linear infinite 1s;
+}
+
+.cyber-lines span:nth-child(3) {
+    top: 60%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    animation: lineGrow 3s linear infinite 2s;
+}
+
+.cyber-lines span:nth-child(4) {
+    top: 80%;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    animation: lineGrow 3s linear infinite 1.5s;
+}
+
+.corner-elements span {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.corner-elements span:nth-child(1) {
+    top: 15px;
+    left: 15px;
+    border-right: 0;
+    border-bottom: 0;
+}
+
+.corner-elements span:nth-child(2) {
+    top: 15px;
+    right: 15px;
+    border-left: 0;
+    border-bottom: 0;
+}
+
+.corner-elements span:nth-child(3) {
+    bottom: 15px;
+    left: 15px;
+    border-right: 0;
+    border-top: 0;
+}
+
+.corner-elements span:nth-child(4) {
+    bottom: 15px;
+    right: 15px;
+    border-left: 0;
+    border-top: 0;
+}
+
+.tracker:hover~#card .corner-elements span {
+    border-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.scan-line {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05), transparent);
+    transform: translateY(-100%);
+    animation: scanMove 4s linear infinite;
+}
+
+@keyframes lineGrow {
+
+    0%,
+    100% {
+        transform: scaleX(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scaleX(1);
+        opacity: 1;
+    }
+}
+
+@keyframes scanMove {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@media (max-width: 768px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        padding: 0 5px;
+    }
+
+    .skill-container {
+        width: 160px;
+        height: 220px;
+    }
+
+    .skill-icon-large {
+        font-size: 2.5rem;
+    }
+
+    #prompt {
+        font-size: 11px;
+        bottom: 90px;
+    }
+
+    .subtitle {
+        font-size: 8px;
+        bottom: 15px;
+    }
+}
