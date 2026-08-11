@@ -1,47 +1,20 @@
 import { useEffect, useRef } from 'react';
-import { FaFigma } from 'react-icons/fa';
+import './Skills.css';
 import './Skills.css';
 
-const SkillCard = ({ name, icon: Icon, description }) => {
-    // Generate 25 trackers for 3D effect
-    const trackers = Array.from({ length: 25 }, (_, i) => i + 1);
-
+const SkillStat = ({ name, icon: Icon, level, delay }) => {
     return (
-        <div className="skill-container noselect">
-            <div className="canvas">
-                {trackers.map((num) => (
-                    <div key={num} className={`tracker tr-${num}`}></div>
-                ))}
-                <div id="card">
-                    <div className="card-content">
-                        <div className="card-glare"></div>
-                        <div className="cyber-lines">
-                            <span></span><span></span><span></span><span></span>
-                        </div>
-                        <p id="prompt">{name.toUpperCase()}</p>
-                        <div className="title">
-                            <span className="skill-icon-large">{Icon}</span>
-                        </div>
-                        <div className="glowing-elements">
-                            <div className="glow-1"></div>
-                            <div className="glow-2"></div>
-                            <div className="glow-3"></div>
-                        </div>
-                        <div className="subtitle">
-                            <span>{description}</span>
-                            <span className="highlight">MODERN TECH</span>
-                        </div>
-                        <div className="card-particles">
-                            <span></span><span></span><span></span>
-                            <span></span><span></span><span></span>
-                        </div>
-                        <div className="corner-elements">
-                            <span></span><span></span><span></span><span></span>
-                        </div>
-                        <div className="scan-line"></div>
-                    </div>
+        <div className="skill-stat-row reveal" style={{ transitionDelay: `${delay}ms` }}>
+            <div className="skill-icon-box">
+                {typeof Icon === 'string' ? <span>{Icon}</span> : Icon}
+            </div>
+            <div className="skill-info">
+                <div className="skill-name">{name}</div>
+                <div className="skill-bar-container">
+                    <div className="skill-bar-fill" style={{ width: level }}></div>
                 </div>
             </div>
+            <div className="skill-level-text">{level}</div>
         </div>
     );
 };
@@ -54,11 +27,9 @@ const Skills = () => {
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        const cards = entry.target.querySelectorAll('.skill-container');
-                        cards.forEach((card, index) => {
-                            setTimeout(() => {
-                                card.classList.add('reveal-active');
-                            }, index * 150);
+                        const rows = entry.target.querySelectorAll('.skill-stat-row');
+                        rows.forEach((row) => {
+                            row.classList.add('active');
                         });
                     }
                 });
@@ -78,36 +49,12 @@ const Skills = () => {
     }, []);
 
     const skills = [
-        {
-            name: 'HTML / CSS',
-            icon: '🎨',
-            description: 'STRUCTURE & STYLE'
-        },
-        {
-            name: 'JavaScript',
-            icon: '⚡',
-            description: 'LOGIC & ACTIONS'
-        },
-        {
-            name: 'React.js',
-            icon: '⚛️',
-            description: 'SINGLE PAGE APPS'
-        },
-        {
-            name: 'Figma',
-            icon: <FaFigma />,
-            description: 'UI/UX DESIGN'
-        },
-        {
-            name: 'Responsiveness',
-            icon: '📐',
-            description: 'ALL DEVICES'
-        },
-        {
-            name: 'Git & GitHub',
-            icon: '🔧',
-            description: 'COLLABORATION'
-        }
+        { name: 'HTML / CSS', icon: <i className='bx bxl-html5'></i>, level: '95%' },
+        { name: 'JavaScript', icon: <i className='bx bxl-javascript'></i>, level: '90%' },
+        { name: 'React.js', icon: <i className='bx bxl-react'></i>, level: '85%' },
+        { name: 'Figma', icon: <i className='bx bxl-figma'></i>, level: '80%' },
+        { name: 'Responsiveness', icon: <i className='bx bx-devices'></i>, level: '95%' },
+        { name: 'Git & GitHub', icon: <i className='bx bxl-git'></i>, level: '85%' }
     ];
 
     return (
@@ -116,15 +63,24 @@ const Skills = () => {
                 <h2 className="section-title">
                     مهاراتي <span className="highlight-text">التقنية</span>
                 </h2>
-                <div ref={sectionRef} className="skills-grid">
-                    {skills.map((skill, index) => (
-                        <SkillCard
-                            key={index}
-                            name={skill.name}
-                            icon={skill.icon}
-                            description={skill.description}
-                        />
-                    ))}
+                
+                <div ref={sectionRef} className="rpg-stats-board">
+                    <div className="rpg-stats-header">
+                        <h3>CHARACTER STATS</h3>
+                        <span>LVL 99</span>
+                    </div>
+                    
+                    <div className="skills-list">
+                        {skills.map((skill, index) => (
+                            <SkillStat
+                                key={index}
+                                name={skill.name}
+                                icon={skill.icon}
+                                level={skill.level}
+                                delay={index * 150}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

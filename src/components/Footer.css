@@ -1,7 +1,8 @@
 .footer {
     background: var(--bg-primary);
     padding: var(--spacing-xl) 0;
-    border-top: 1px solid var(--glass-border);
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    position: relative;
 }
 
 .footer-content {
@@ -9,14 +10,18 @@
 }
 
 .footer-text {
-    font-size: 1rem;
+    font-family: var(--font-body);
+    font-size: 1.2rem;
     color: var(--text-secondary);
     margin-bottom: var(--spacing-xs);
+    letter-spacing: 2px;
 }
 
 .footer-subtitle {
-    font-size: 0.875rem;
+    font-family: var(--font-body);
+    font-size: 1rem;
     color: var(--text-tertiary);
+    letter-spacing: 1px;
 }
 
 @media (max-width: 767px) {
@@ -25,10 +30,10 @@
     }
 
     .footer-text {
-        font-size: 0.9375rem;
+        font-size: 1.1rem;
     }
 
     .footer-subtitle {
-        font-size: 0.8125rem;
+        font-size: 0.9rem;
     }
 }

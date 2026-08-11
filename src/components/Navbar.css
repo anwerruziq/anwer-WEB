@@ -50,12 +50,14 @@
 
 .nav-links a {
     color: var(--text-primary);
-    font-weight: 500;
+    font-family: var(--font-body);
+    font-weight: 400;
     text-decoration: none;
-    font-size: 0.9375rem;
+    font-size: 1.2rem;
     position: relative;
     transition: color var(--transition-fast);
     padding: 0.5rem 0;
+    letter-spacing: 2px;
 }
 
 .nav-links a::after {
@@ -161,14 +163,15 @@
 
 .mobile-nav-links a {
     color: var(--text-primary);
-    font-size: 1.5rem;
-    /* Larger font for centered menu */
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-size: 2rem;
+    font-weight: 400;
     text-decoration: none;
     padding: var(--spacing-sm);
     transition: all var(--transition-fast);
     opacity: 0;
     transform: translateY(10px);
+    letter-spacing: 3px;
 }
 
 .mobile-menu.active .mobile-nav-links a {

@@ -1,4 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@400;500;600;700&display=swap');
+
+@font-face {
+  font-family: 'Al-Abdali';
+  src: url('/Al-Abdali-8-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 * {
   margin: 0;
@@ -7,6 +16,10 @@
 }
 
 :root {
+  --font-pixel: 'VT323', monospace;
+  --font-heading: 'VT323', 'Al-Abdali', monospace;
+  --font-body: 'VT323', 'Changa', sans-serif;
+  
   /* Colors - Monochromatic (Black, White, Gray) */
   --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
@@ -52,11 +65,11 @@
 
 [lang="ar"] {
   direction: rtl;
-  font-family: 'Almarai', 'Inter', sans-serif;
+  font-family: var(--font-body);
 }
 
 body {
-  font-family: 'Inter', 'Almarai', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
@@ -75,9 +88,11 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+.section-title {
   font-weight: 700;
   line-height: 1.2;
+  font-family: var(--font-heading);
 }
 
 h1 {
