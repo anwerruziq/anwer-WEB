@@ -93,8 +93,13 @@ body {
 }
 
 html {
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
+
+section {
+  will-change: transform;
+}
+
 
 
 h1, h2, h3, h4, h5, h6, .section-title {

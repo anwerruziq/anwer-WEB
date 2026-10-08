@@ -5,7 +5,7 @@ import './About.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOGGLE = 'play reverse play reverse';
+const TOGGLE = 'play none none reverse';
 
 const About = () => {
   const sectionRef = useRef(null);
@@ -18,12 +18,12 @@ const About = () => {
         {
           opacity: 1, x: 0, clipPath: 'inset(0 0% 0 0)',
           duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: 'top 25%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', end: 'bottom 20%', toggleActions: TOGGLE }
         }
       );
 
       const titleTl = gsap.timeline({
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 70%', end: 'top 20%', toggleActions: TOGGLE }
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: 'bottom 20%', toggleActions: TOGGLE }
       });
       titleTl
         .fromTo('.about-title-glitch',
@@ -41,7 +41,7 @@ const About = () => {
         {
           y: 0, opacity: 1, clipPath: 'inset(0 0% 0 0)',
           duration: 0.7, stagger: 0.2, ease: 'power2.out',
-          scrollTrigger: { trigger: '.about-bio', start: 'top 80%', end: 'top 30%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: '.about-bio', start: 'top 85%', end: 'bottom 10%', toggleActions: TOGGLE }
         }
       );
 
@@ -52,7 +52,7 @@ const About = () => {
           boxShadow: '0 0 20px rgba(120,162,181,0.15)',
           duration: 0.7, stagger: 0.15,
           ease: 'back.out(2)',
-          scrollTrigger: { trigger: '.about-stats-grid', start: 'top 85%', end: 'top 35%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: '.about-stats-grid', start: 'top 90%', end: 'bottom 10%', toggleActions: TOGGLE }
         }
       );
 
@@ -68,7 +68,7 @@ const About = () => {
           duration: 1.5,
           ease: 'power1.out',
           snap: { textContent: 1 },
-          scrollTrigger: { trigger: el, start: 'top 90%', end: 'top 40%', toggleActions: TOGGLE },
+          scrollTrigger: { trigger: el, start: 'top 95%', end: 'bottom 10%', toggleActions: TOGGLE },
           onUpdate: function() {
             el.textContent = prefix + Math.round(this.targets()[0].textContent) + suffix;
           }

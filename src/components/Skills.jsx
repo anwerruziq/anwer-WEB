@@ -5,7 +5,7 @@ import './Skills.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOGGLE = 'play reverse play reverse';
+const TOGGLE = 'play none none reverse';
 
 
 const skillsData = [
@@ -79,7 +79,7 @@ const Skills = () => {
         {
           opacity: 1, x: 0, clipPath: 'inset(0 0% 0 0)',
           duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: 'top 25%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', end: 'bottom 20%', toggleActions: TOGGLE }
         }
       );
 
@@ -89,7 +89,7 @@ const Skills = () => {
         {
           opacity: 1, scale: 1, filter: 'brightness(1) hue-rotate(0deg)',
           duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: '.radar-container', start: 'top 80%', end: 'top 30%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: '.radar-container', start: 'top 85%', end: 'bottom 10%', toggleActions: TOGGLE }
         }
       );
       
@@ -110,8 +110,8 @@ const Skills = () => {
         scrollTrigger: {
           trigger: '.radar-container',
           start: 'top 75%',
-          end: 'top 25%',
           toggleActions: TOGGLE,
+          end: 'bottom 10%',
         },
         onUpdate: () => {
           const currentValues = [skillValues.s0, skillValues.s1, skillValues.s2, skillValues.s3, skillValues.s4];
@@ -137,7 +137,7 @@ const Skills = () => {
       // Quest cards — spawn like game items with power-up effect
       gsap.utils.toArray('.quest-card').forEach((card, i) => {
         const cardTl = gsap.timeline({
-          scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 38%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: card, start: 'top 90%', end: 'bottom 10%', toggleActions: TOGGLE }
         });
 
         cardTl.fromTo(card,

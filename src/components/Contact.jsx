@@ -5,7 +5,7 @@ import './Contact.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOGGLE = 'play reverse play reverse';
+const TOGGLE = 'play none none reverse';
 
 const Contact = () => {
   const sectionRef = useRef(null);
@@ -19,13 +19,13 @@ const Contact = () => {
         {
           opacity: 1, x: 0, clipPath: 'inset(0 0% 0 0)',
           duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: 'top 25%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', end: 'bottom 20%', toggleActions: TOGGLE }
         }
       );
 
       // Terminal boots up — scanline flash effect
       const termTl = gsap.timeline({
-        scrollTrigger: { trigger: '.contact-terminal', start: 'top 82%', end: 'top 32%', toggleActions: TOGGLE }
+        scrollTrigger: { trigger: '.contact-terminal', start: 'top 85%', end: 'bottom 10%', toggleActions: TOGGLE }
       });
 
       termTl.fromTo('.contact-terminal',
@@ -55,7 +55,7 @@ const Contact = () => {
             duration: 0.5,
             delay: i * 0.08,
             ease: 'power3.out',
-            scrollTrigger: { trigger: '.terminal-links', start: 'top 85%', end: 'top 35%', toggleActions: TOGGLE }
+            scrollTrigger: { trigger: '.terminal-links', start: 'top 90%', end: 'bottom 10%', toggleActions: TOGGLE }
           }
         );
       });

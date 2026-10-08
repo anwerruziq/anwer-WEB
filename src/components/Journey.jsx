@@ -5,7 +5,7 @@ import './Journey.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOGGLE = 'play reverse play reverse';
+const TOGGLE = 'play none none reverse';
 
 const Journey = () => {
     const sectionRef = useRef(null);
@@ -15,7 +15,7 @@ const Journey = () => {
 
             // Section title glitch in
             const titleTl = gsap.timeline({
-                scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: 'top 25%', toggleActions: TOGGLE }
+                scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', end: 'bottom 20%', toggleActions: TOGGLE }
             });
             titleTl.fromTo('.journey .section-title',
                 { opacity: 0, y: -30, skewX: -10 },
@@ -30,7 +30,7 @@ const Journey = () => {
             // Timeline items — unlock like game achievements
             gsap.utils.toArray('.journey-item').forEach((item, i) => {
                 const itemTl = gsap.timeline({
-                    scrollTrigger: { trigger: item, start: 'top 85%', end: 'top 35%', toggleActions: TOGGLE }
+                    scrollTrigger: { trigger: item, start: 'top 90%', end: 'bottom 10%', toggleActions: TOGGLE }
                 });
 
                 // Dot pulses in

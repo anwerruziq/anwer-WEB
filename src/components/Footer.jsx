@@ -5,7 +5,7 @@ import './Footer.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOGGLE = 'play reverse play reverse';
+const TOGGLE = 'play none none reverse';
 
 const Footer = () => {
   const footerRef = useRef(null);
@@ -18,7 +18,7 @@ const Footer = () => {
         { opacity: 0, y: 30 },
         {
           opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
-          scrollTrigger: { trigger: footerRef.current, start: 'top 95%', end: 'top 45%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: footerRef.current, start: 'top 95%', end: 'bottom 0%', toggleActions: TOGGLE }
         }
       );
 
@@ -27,7 +27,7 @@ const Footer = () => {
         { opacity: 0, letterSpacing: '1em' },
         {
           opacity: 1, letterSpacing: '0.15em', duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: footerRef.current, start: 'top 90%', end: 'top 40%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: footerRef.current, start: 'top 95%', end: 'bottom 0%', toggleActions: TOGGLE }
         }
       );
 
@@ -36,7 +36,7 @@ const Footer = () => {
         { opacity: 0, y: 15 },
         {
           opacity: 1, y: 0, duration: 0.4, stagger: 0.1, ease: 'back.out(2)',
-          scrollTrigger: { trigger: footerRef.current, start: 'top 90%', end: 'top 40%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: footerRef.current, start: 'top 95%', end: 'bottom 0%', toggleActions: TOGGLE }
         }
       );
 

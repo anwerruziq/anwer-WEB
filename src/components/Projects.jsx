@@ -5,7 +5,7 @@ import './Projects.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const TOGGLE = 'play reverse play reverse';
+const TOGGLE = 'play none none reverse';
 
 const projects = [
   {
@@ -78,14 +78,14 @@ const Projects = () => {
         {
           opacity: 1, x: 0, clipPath: 'inset(0 0% 0 0)',
           duration: 0.8, ease: 'power3.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: 'top 25%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', end: 'bottom 20%', toggleActions: TOGGLE }
         }
       );
 
       // Mission cards — materialize like spawning game objects
       gsap.utils.toArray('.mission-card').forEach((card, i) => {
         const cardTl = gsap.timeline({
-          scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 38%', toggleActions: TOGGLE }
+          scrollTrigger: { trigger: card, start: 'top 90%', end: 'bottom 10%', toggleActions: TOGGLE }
         });
 
         // Card entrance with skew
