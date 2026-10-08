@@ -1,0 +1,688 @@
+Let me start by examining the current Hero component and the images mentioned.
+
+Now let me see the Hero CSS file:
+
+الآن أفهم كل شيء. سأقوم بالتغييرات المطلوبة:
+
+تحسين سلاسة الفريمات - خاصةً على شاشات اللمس
+انيميشن ظهور الـ Landing Hero عند الوصول لآخر فريم - بدون سحب للأعلى
+استخدام الصورة الجديدة (الشخصية العربية) بدلاً من الساموراي
+ظهور الضلعين الأسودين من الزوايا كما في التصميم المرجعي
+دعني أبدأ التعديلات:
+
+الآن دعني أتحقق من الملف:
+
+الملف تم كتابته بنجاح. الآن دعني أتحقق من CSS للتأكد من أنه يدعم الأنيميشن الجديد بشكل صحيح:
+
+Hero.css
+الآن دعني أشغّل الـ dev server للتحقق من أنه يعمل:
+
+السيرفر يعمل على المنفذ 5174. الآن دعني أتحقق من الـ Hero.jsx بالكامل للتأكد من عدم وجود أخطاء:
+
+النص العربي ظهر كـ garbled characters بسبب مشكلة encoding في PowerShell. دعني أصلح ذلك بطريقة أخرى:
+
+النص العربي تلف. دعني أُصلح الملف باستخدام Node.js مباشرةً:
+
+…\web\protofailo > node -e "const fs = require('fs');let content = fs.readFileSync('src/components/Hero.jsx', 'utf8');// Fix Arabic text in hero headlinecontent = content.replace(/\u003ch1 id=\"hero-headline\"[^>]*\u003e[\s\S]*?\u003c\/h1\u003e/, (m) => m.replace(/\u003ch1 id=\"hero-headline\"[^>]*\u003e[\s\S]*?\u003c\/h1\u003e/, m.replace(/[\u0000-\u001F\u007F-\u00FF\u0100-\u017F\u0180-\u024F]+/g, '')));// Just rewrite the JSX Arabic sections directlycontent = content  .replace(/\u003ch1 id=\"hero-headline\"[^>]*\u003e\s*[^<]*\s*\u003c\/h1\u003e/, '<h1 id=\"hero-headline\" className={reducedMotion ? \'hero-visible\' : \'\'}>\n            \u0635\u064f\u0646\u0650\u0639\u064e \u0628\u0625\u062a\u0642\u0627\u0646\n          </h1>')  .replace(/\u003cp id=\"hero-subtitle\"[^>]*\u003e\s*[^<]*\s*\u003c\/p\u003e/, '<p id=\"hero-subtitle\" className={reducedMotion ? \'hero-visible\' : \'\'}>\n            \u062a\u062c\u0627\u0631\u0628 \u0631\u0642\u0645\u064a\u0629 \u062a\u062a\u062c\u0627\u0648\u0632 \u0627\u0644\u062d\u062f\u0648\u062f \u2014 \u0646\u0635\u0645\u0645 \u0645\u0627 \u064a\u064f\u0634\u0639\u064e\u0631 \u0628\u0647\n          </p>')  .replace(/\u003cp className=\"landing-subtitle\"\u003e\s*[^<]*\s*\u003cbr/, '<p className=\"landing-subtitle\">\n                \u0623\u0628\u0646\u064a \u062a\u062c\u0627\u0631\u0628 \u0648\u064a\u0628 \u0644\u0627 \u062a\u064f\u0646\u0633\u0649.<br')  .replace(/\u003cbr \/\u003e[^<]*\u062d\u0631[\s\S]*?\u0648\u0629\.\s*\n/, '<br />\u0628\u064a\u0646 \u0627\u0644\u0643\u0648\u062f \u0648\u0627\u0644\u062a\u0635\u0645\u064a\u0645 \u0648\u0627\u0644\u062d\u0631\u0643\u0629.\n')  .replace(/\u003cbutton[^>]*\u003e\s*[^<]*\s*\u003c\/button\u003e/, '<button className=\"landing-cta\" onClick={scrollToAbout}>\n                \u0627\u0633\u062a\u0643\u0634\u0641 \u2193\n              </button>');fs.writeFileSync('src/components/Hero.jsx', content, 'utf8');console.log('Done');"
+[eval]:6
+content = content.replace(/\u003ch1 id=" hero-headline\[^>]*\u003e[\s\S]*?\u003c\/h1\u003e/,
+                                                                                            
+
+SyntaxError: Unexpected end of input
+    at makeContextifyScript (node:internal/vm:185:14)
+    at compileScript (node:internal/process/execution:386:10)
+    at node:internal/process/execution:450:25
+    at [eval]-wrapper:6:24
+    at runScriptInContext (node:internal/process/execution:447:60)
+    at evalFunction (node:internal/process/execution:87:30)
+    at evalScript (node:internal/process/execution:99:3)
+    at node:internal/main/eval_string:74:3
+
+Node.js v22.14.0
+Task id "6b88857d-1cd5-4525-91ea-f1597d878a4c/task-35" finished with result:
+
+			The command exited with code 1.
+			Output:
+			[eval]:6
+content = content.replace(/\u003ch1 id=" hero-headline[^>]\u003e[\s\S]?\u003c/h1\u003e/,
+
+SyntaxError: Unexpected end of input at makeContextifyScript (node:internal/vm:185:14) at compileScript (node:internal/process/execution:386:10) at node:internal/process/execution:450:25 at [eval]-wrapper:6:24 at runScriptInContext (node:internal/process/execution:447:60) at evalFunction (node:internal/process/execution:87:30) at evalScript (node:internal/process/execution:99:3) at node:internal/main/eval_string:74:3
+
+Node.js v22.14.0
+
+Log: file:///C:/Users/programe/.gemini/antigravity-ide/brain/6b88857d-1cd5-4525-91ea-f1597d878a4c/.system_generated/tasks/task-35.log
+
+دعني أستخدم Node.js script file بدلاً من inline:
+
+Task id "6b88857d-1cd5-4525-91ea-f1597d878a4c/task-40" finished with result:
+
+			The command exited with code 0.
+			Output:
+			Arabic check: 0 chars
+Log: file:///C:/Users/programe/.gemini/antigravity-ide/brain/6b88857d-1cd5-4525-91ea-f1597d878a4c/.system_generated/tasks/task-40.log
+
+الـ encoding تلف تماماً عند الكتابة بـ PowerShell. دعني أكتب سكريبت Node.js كملف منفصل لإعادة بناء الـ JSX الصحيح:
+
+دعني أكتب سكريبت أبسط كملف CommonJS:
+
+96 حرف عربي تمت استعادتهم بنجاح. دعني الآن أتحقق من الـ dev server للتأكد من عدم وجود أخطاء:
+
+Preview
+Verify Hero Animation Fix
+Goal
+Open the browser and navigate to http://localhost:5174/ . Wait for the page to fully load (the loading bar should complete). Then scroll down slowly multiple times to verify the frame animation is smooth. Take a screenshot showing: 1) The initial loaded state, 2) Scroll midway through the frames. Then scroll all the way to the end of the frame sequence to trigger the landing hero reveal. Take a final screenshot showing the landing hero with the Arabic warrior character, the diagonal dark slash panels coming from the corners, and the text elements (ANWER RUZIQ title, badge, subtitle, and CTA button). Report back what you see - is the animation smooth? Does the landing hero appear correctly with the character and diagonal panels?
+I will start by viewing the scratchpad file to check for any existing context or instructions.
+
+Scratchpad#L1
+I will initialize the scratchpad with the checklist for this task.
+
+Scratchpad
+I will list the open browser pages to see if there is an existing page I can reuse.
+
+No browser pages open
+
+I will open the local URL in a new browser tab.
+
+I will read the DOM of the loaded page to see its structure.
+
+I will wait for a short moment to allow the page content to load.
+
+I will check the DOM again after waiting.
+
+I will update the scratchpad to document the current status (empty DOM, waiting/investigating).
+
+Scratchpad#L1-8
+I will update the scratchpad with notes on the empty DOM.
+
+Scratchpad
+I will take a screenshot of the browser page to check if anything is rendering.
+
+I will query the DOM tree again to see if it is populated.
+
+I will check the body DOM structure using JavaScript to see if there are other non-interactive elements like canvases, containers, or a loader.
+
+(() => {
+  const getElements = (el) => {
+    let desc = el.tagName.toLowerCase();
+    if (el.id) desc += '#' + el.id;
+    if (el.className) desc += '.' + Array.from(el.classList).join('.');
+    const children = Array.from(el.children).map(getElements);
+    return children.length > 0 ? { name: desc, children } : { name: desc };
+  };
+  return JSON.stringify(getElements(document.body), null, 2);
+})()
+I will retrieve the browser console logs to see if there are any errors or load messages.
+
+I will execute JavaScript to check the text and visibility of the hero loader elements to confirm if it has finished loading.
+
+(() => {
+  const loader = document.querySelector('.hero-loader-overlay');
+  const percentEl = document.querySelector('.hero-loader-percent');
+  const canvas = document.querySelector('.hero-canvas');
+  return {
+    loaderClass: loader ? loader.className : null,
+    percentText: percentEl ? percentEl.textContent : null,
+    canvasStyle: canvas ? canvas.style.cssText : null,
+    canvasWidth: canvas ? canvas.width : null,
+    canvasHeight: canvas ? canvas.height : null,
+    windowScrollY: window.scrollY
+  };
+})()
+I will capture and save the screenshot of the initial loaded state.
+
+I will update the scratchpad checklist now.
+
+Scratchpad#L1-8
+I will check off the opening and initial loaded state items on the scratchpad.
+
+Scratchpad
+I will check the window viewport height and total scrollable height to plan my scrolling increments.
+
+(() => {
+  return {
+    scrollHeight: document.documentElement.scrollHeight,
+    innerHeight: window.innerHeight,
+    scrollY: window.scrollY
+  };
+})()
+I will scroll down the page to scrollY = 2000px using JavaScript.
+
+(() => {
+  window.scrollTo(0, 2000);
+  return window.scrollY;
+})()
+I will wait for the scroll animation to update.
+
+I will capture a screenshot to check the rendering at 2000px scroll depth.
+
+I will scroll down to 4000px.
+
+(() => {
+  window.scrollTo(0, 4000);
+  return window.scrollY;
+})()
+I will wait for the scroll animation to update.
+
+I will capture a screenshot to check the rendering at 4000px scroll depth.
+
+I will query the ScrollTrigger or GSAP pin configuration to see the pinning duration for the hero section.
+
+(() => {
+  if (typeof ScrollTrigger !== 'undefined') {
+    return ScrollTrigger.getAll().map(st => ({
+      trigger: st.trigger ? st.trigger.tagName + '.' + st.trigger.className : null,
+      start: st.start,
+      end: st.end,
+      progress: st.progress
+    }));
+  }
+  // Let's also look for custom window variables if any
+  return { gsapExists: typeof gsap !== 'undefined', scrollTriggerExists: typeof ScrollTrigger !== 'undefined' };
+})()
+JavaScript Result
+
+map[gsapExists:false scrollTriggerExists:false]
+I will scroll down to 3000px.
+
+(() => {
+  window.scrollTo(0, 3000);
+  return window.scrollY;
+})()
+JavaScript Result
+
+3000
+I will wait for the scroll animation to update.
+
+I will capture a screenshot at 3000px to see the midway frame of the animation.
+
+I will execute JS to check for any elements with classes like "slash", "panel", "diagonal", or other overlays in the hero section.
+
+(() => {
+  const hero = document.getElementById('home');
+  const elements = Array.from(hero.querySelectorAll('*')).map(el => {
+    let desc = el.tagName.toLowerCase();
+    if (el.id) desc += '#' + el.id;
+    if (el.className) desc += '.' + Array.from(el.classList).join('.');
+    return {
+      desc,
+      style: el.style.cssText,
+      opacity: window.getComputedStyle(el).opacity,
+      transform: window.getComputedStyle(el).transform,
+      clipPath: window.getComputedStyle(el).clipPath
+    };
+  });
+  return elements;
+})()
+I will check the opacity and transform of the landing elements at scrollY = 1000 to understand the scroll-based transition.
+
+(() => {
+  window.scrollTo(0, 1000);
+  // Get styles of some landing elements
+  const topSlash = document.querySelector('.landing-slash-top');
+  const bottomSlash = document.querySelector('.landing-slash-bottom');
+  const character = document.querySelector('.landing-character-wrap');
+  const textLeft = document.querySelector('.landing-text-left');
+  const textRight = document.querySelector('.landing-text-right');
+  return {
+    scrollY: window.scrollY,
+    topSlash: topSlash ? { opacity: window.getComputedStyle(topSlash).opacity, transform: window.getComputedStyle(topSlash).transform } : null,
+    bottomSlash: bottomSlash ? { opacity: window.getComputedStyle(bottomSlash).opacity, transform: window.getComputedStyle(bottomSlash).transform } : null,
+    character: character ? { opacity: window.getComputedStyle(character).opacity, transform: window.getComputedStyle(character).transform } : null,
+    textLeft: textLeft ? { opacity: window.getComputedStyle(textLeft).opacity, transform: window.getComputedStyle(textLeft).transform } : null,
+    textRight: textRight ? { opacity: window.getComputedStyle(textRight).opacity, transform: window.getComputedStyle(textRight).transform } : null
+  };
+})()
+JavaScript Result
+
+map[bottomSlash:map[opacity:1 transform:matrix(1, 0, 0, 1, 0, 0)] character:map[opacity:1 transform:matrix(1, 0, 0, 1, -292.461, 0)] scrollY:1000 textLeft:map[opacity:1 transform:matrix(1, 0, 0, 1, 0, -51.625)] textRight:map[opacity:1 transform:none] topSlash:map[opacity:1 transform:matrix(1, 0, 0, 1, 0, 0)]]
+I will check the landing elements' styles at scrollY = 0px.
+
+(() => {
+  window.scrollTo(0, 0);
+  const topSlash = document.querySelector('.landing-slash-top');
+  const bottomSlash = document.querySelector('.landing-slash-bottom');
+  const character = document.querySelector('.landing-character-wrap');
+  const textLeft = document.querySelector('.landing-text-left');
+  const textRight = document.querySelector('.landing-text-right');
+  return {
+    scrollY: window.scrollY,
+    topSlash: topSlash ? { opacity: window.getComputedStyle(topSlash).opacity, transform: window.getComputedStyle(topSlash).transform } : null,
+    bottomSlash: bottomSlash ? { opacity: window.getComputedStyle(bottomSlash).opacity, transform: window.getComputedStyle(bottomSlash).transform } : null,
+    character: character ? { opacity: window.getComputedStyle(character).opacity, transform: window.getComputedStyle(character).transform } : null,
+    textLeft: textLeft ? { opacity: window.getComputedStyle(textLeft).opacity, transform: window.getComputedStyle(textLeft).transform } : null,
+    textRight: textRight ? { opacity: window.getComputedStyle(textRight).opacity, transform: window.getComputedStyle(textRight).transform } : null
+  };
+})()
+JavaScript Result
+
+map[bottomSlash:map[opacity:1 transform:matrix(1, 0, 0, 1, 0, 0)] character:map[opacity:1 transform:matrix(1, 0, 0, 1, -292.461, 0)] scrollY:0 textLeft:map[opacity:1 transform:matrix(1, 0, 0, 1, 0, -51.625)] textRight:map[opacity:1 transform:none] topSlash:map[opacity:1 transform:matrix(1, 0, 0, 1, 0, 0)]]
+I will query the computed styles of the .landing-hero container to understand how its visibility changes during scroll.
+
+(() => {
+  const el = document.querySelector('.landing-hero');
+  if (!el) return null;
+  const style = window.getComputedStyle(el);
+  return {
+    display: style.display,
+    visibility: style.visibility,
+    opacity: style.opacity,
+    zIndex: style.zIndex,
+    position: style.position,
+    top: style.top,
+    left: style.left,
+    width: style.width,
+    height: style.height
+  };
+})()
+I will check the computed styles of the .hero-canvas to see if it covers the landing hero at the beginning.
+
+(() => {
+  const el = document.querySelector('.hero-canvas');
+  if (!el) return null;
+  const style = window.getComputedStyle(el);
+  return {
+    display: style.display,
+    visibility: style.visibility,
+    opacity: style.opacity,
+    zIndex: style.zIndex,
+    position: style.position
+  };
+})()
+JavaScript Result
+
+map[display:block opacity:1 position:absolute visibility:visible zIndex:auto]
+I will check the height and position of the pin-spacer element to understand the pinning scroll range.
+
+(() => {
+  const el = document.querySelector('.pin-spacer');
+  if (!el) return null;
+  return {
+    offsetHeight: el.offsetHeight,
+    styleHeight: el.style.height,
+    stylePaddingBottom: el.style.paddingBottom
+  };
+})()
+JavaScript Result
+
+map[offsetHeight:8226 styleHeight:8226px stylePaddingBottom:3656px]
+I will scroll down to 1500px to see what the frame animation looks like there.
+
+(() => {
+  window.scrollTo(0, 1500);
+  return window.scrollY;
+})()
+JavaScript Result
+
+1500
+I will wait for the scroll animation to update.
+
+I will capture a screenshot at 1500px to see the animation frame.
+
+I will check the current window.scrollY using JavaScript to verify where the scrollbar is.
+
+window.scrollY
+JavaScript Result
+
+4200
+I will scroll to 0px and check if it stays there.
+
+(() => {
+  window.scrollTo(0, 0);
+  return window.scrollY;
+})()
+JavaScript Result
+
+0
+I will wait and check scrollY again.
+
+I will query window.scrollY to see if it changed.
+
+window.scrollY
+I will scroll to 1000px and wait to see if it remains there.
+
+(() => {
+  window.scrollTo(0, 1000);
+  return window.scrollY;
+})()
+JavaScript Result
+
+1000
+I will wait and check scrollY.
+
+I will check the scrollY value.
+
+window.scrollY
+JavaScript Result
+
+1933
+I will capture a screenshot at the snap position 1933px.
+
+I will execute JavaScript to check what globals are available on the window object to identify the scroll animation framework.
+
+(() => {
+  return Object.keys(window).filter(key => {
+    return !/^[a-z]/.test(key) || ['lenis', 'gsap', 'ScrollTrigger', 'Scrollbar'].includes(key);
+  });
+})()
+JavaScript Result
+
+[__jetski_console_buffer_1786906961575501700 __registerBeforePerformReactRefresh __REACT_DEVTOOLS_GLOBAL_HOOK__ $RefreshReg$ $RefreshSig$ _gsap _scrollTop _scrollLeft]
+I will check the attributes and dataset of the canvas element.
+
+(() => {
+  const canvas = document.querySelector('.hero-canvas');
+  if (!canvas) return null;
+  return {
+    attributes: Array.from(canvas.attributes).map(a => `${a.name}=${a.value}`),
+    dataset: Object.assign({}, canvas.dataset)
+  };
+})()
+JavaScript Result
+
+map[attributes:[class=hero-canvas width=838 height=914 style=width: 838px; height: 914px;] dataset:map[]]
+I will scroll to 500px and check the snap position.
+
+(() => {
+  window.scrollTo(0, 500);
+  return window.scrollY;
+})()
+JavaScript Result
+
+500
+I will wait and check scrollY.
+
+I will check the scrollY value.
+
+window.scrollY
+JavaScript Result
+
+500
+I will capture a screenshot at 500px to see the animation frame.
+
+I will check the window scroll position again.
+
+window.scrollY
+JavaScript Result
+
+1400
+I will scroll to 8000px using JavaScript.
+
+(() => {
+  window.scrollTo(0, 8000);
+  return window.scrollY;
+})()
+JavaScript Result
+
+8000
+I will wait for the scroll animation to update.
+
+I will check window.scrollY.
+
+window.scrollY
+JavaScript Result
+
+8000
+I will capture a screenshot at 8000px.
+
+I will check the transform and opacity of the diagonal slashes at scrollY = 3000px.
+
+(() => {
+  const topSlash = document.querySelector('.landing-slash-top');
+  const bottomSlash = document.querySelector('.landing-slash-bottom');
+  return {
+    topSlash: topSlash ? { opacity: window.getComputedStyle(topSlash).opacity, transform: window.getComputedStyle(topSlash).transform } : null,
+    bottomSlash: bottomSlash ? { opacity: window.getComputedStyle(bottomSlash).opacity, transform: window.getComputedStyle(bottomSlash).transform } : null
+  };
+})()
+JavaScript Result
+
+map[bottomSlash:map[opacity:1 transform:matrix(1, 0, 0, 1, 0, 0)] topSlash:map[opacity:1 transform:matrix(1, 0, 0, 1, 0, 0)]]
+I will scroll to 0px and capture a screenshot to verify if the landing hero elements are visible at the very top.
+
+(() => {
+  window.scrollTo(0, 0);
+  return window.scrollY;
+})()
+JavaScript Result
+
+0
+I will wait for the scroll to settle.
+
+I will capture a screenshot at scrollY = 0px.
+
+I will reload the page by opening the URL again to see if the canvas sequence resets.
+
+I will list the open browser pages to find the page ID.
+
+I will capture a screenshot of the reloaded page to verify the reset state.
+
+I will set history.scrollRestoration = 'manual', scroll to 0px, and reload the page so that it starts at the true initial state.
+
+(() => {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+  location.reload();
+  return true;
+})()
+JavaScript Result
+
+true
+I will wait 3 seconds for the page to fully reload and render.
+
+I will check the current scroll position and loader state.
+
+(() => {
+  return {
+    scrollY: window.scrollY,
+    loaderClass: document.querySelector('.hero-loader-overlay') ? document.querySelector('.hero-loader-overlay').className : null
+  };
+})()
+JavaScript Result
+
+map[loaderClass:hero-loader-overlay hero-loader-hidden scrollY:1400]
+I will force scroll to 0px instantly and return the scroll position.
+
+(() => {
+  window.scrollTo({top: 0, behavior: 'instant'});
+  return window.scrollY;
+})()
+JavaScript Result
+
+0
+I will capture a screenshot immediately to check if the sword is visible before any auto-scroll happens.
+
+I will inject a script that records the state of the landing elements over time to see how the intro animation behaves.
+
+(() => {
+  window.stateTracker = [];
+  const track = () => {
+    const loader = document.querySelector('.hero-loader-overlay');
+    const percentEl = document.querySelector('.hero-loader-percent');
+    const hero = document.querySelector('.landing-hero');
+    const canvas = document.querySelector('.hero-canvas');
+    window.stateTracker.push({
+      time: Date.now(),
+      scroll: window.scrollY,
+      percent: percentEl ? percentEl.textContent : null,
+      loaderClass: loader ? loader.className : null,
+      heroOpacity: hero ? window.getComputedStyle(hero).opacity : null,
+      heroDisplay: hero ? window.getComputedStyle(hero).display : null,
+      canvasOpacity: canvas ? window.getComputedStyle(canvas).opacity : null
+    });
+  };
+  track();
+  // Set up interval to track every 100ms
+  window.trackerInterval = setInterval(track, 100);
+  return true;
+})()
+JavaScript Result
+
+true
+I will reload the page and immediately start the state tracker.
+
+(() => {
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+  window.scrollTo(0, 0);
+  setTimeout(() => {
+    location.reload();
+  }, 50);
+  return true;
+})()
+JavaScript Result
+
+true
+I will inject the tracking script now.
+
+(() => {
+  window.stateTracker = [];
+  const track = () => {
+    const loader = document.querySelector('.hero-loader-overlay');
+    const percentEl = document.querySelector('.hero-loader-percent');
+    const hero = document.querySelector('.landing-hero');
+    const canvas = document.querySelector('.hero-canvas');
+    window.stateTracker.push({
+      time: Date.now(),
+      scroll: window.scrollY,
+      percent: percentEl ? percentEl.textContent : null,
+      loaderClass: loader ? loader.className : null,
+      heroOpacity: hero ? window.getComputedStyle(hero).opacity : null,
+      heroDisplay: hero ? window.getComputedStyle(hero).display : null,
+      canvasOpacity: canvas ? window.getComputedStyle(canvas).opacity : null
+    });
+  };
+  track();
+  window.trackerInterval = setInterval(track, 50);
+  return true;
+})()
+JavaScript Result
+
+true
+I will wait for 3 seconds to gather tracking logs.
+
+I will retrieve the logs collected by the state tracker.
+
+I will take a screenshot of the current page to check its state.
+
+I will query the window scroll position to confirm it is 0.
+
+window.scrollY
+JavaScript Result
+
+0
+I will scroll smoothly from 0px to 3000px over 3 seconds using an asynchronous JavaScript animation to verify that the frame sequence animates smoothly.
+
+(async () => {
+  const scrollSmoothly = (target, duration) => {
+    return new Promise((resolve) => {
+      const start = window.scrollY;
+      const startTime = performance.now();
+      const animate = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, start + (target - start) * progress);
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          resolve();
+        }
+      };
+      requestAnimationFrame(animate);
+    });
+  };
+  await scrollSmoothly(3000, 3000);
+  return window.scrollY;
+})()
+JavaScript Result
+
+3000
+I will capture a screenshot at 3000px to show the midway state.
+
+I will scroll smoothly from 3000px to 5500px to progress further in the animation sequence.
+
+(async () => {
+  const scrollSmoothly = (target, duration) => {
+    return new Promise((resolve) => {
+      const start = window.scrollY;
+      const startTime = performance.now();
+      const animate = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, start + (target - start) * progress);
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          resolve();
+        }
+      };
+      requestAnimationFrame(animate);
+    });
+  };
+  await scrollSmoothly(5500, 2500);
+  return window.scrollY;
+})()
+JavaScript Result
+
+5500
+I will capture a screenshot at 5500px.
+
+I will run a diagnostic script to check the computed styles of the canvas and landing elements across different scroll positions to locate the reveal point.
+
+(() => {
+  const steps = [];
+  const topSlash = document.querySelector('.landing-slash-top');
+  const bottomSlash = document.querySelector('.landing-slash-bottom');
+  const hero = document.querySelector('.landing-hero');
+  const canvas = document.querySelector('.hero-canvas');
+  
+  const originalScrollY = window.scrollY;
+  
+  for (let y = 0; y <= 8000; y += 500) {
+    window.scrollTo(0, y);
+    steps.push({
+      scrollY: y,
+      canvasOpacity: canvas ? window.getComputedStyle(canvas).opacity : null,
+      heroOpacity: hero ? window.getComputedStyle(hero).opacity : null,
+      topSlashTransform: topSlash ? window.getComputedStyle(topSlash).transform : null,
+      topSlashClip: topSlash ? window.getComputedStyle(topSlash).clipPath : null,
+      bottomSlashTransform: bottomSlash ? window.getComputedStyle(bottomSlash).transform : null
+    });
+  }
+  
+  // Restore original scroll
+  window.scrollTo(0, originalScrollY);
+  return steps;
+})()
+JavaScript Result
+
+[map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:0 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:500 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:1000 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:1500 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:2000 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:2500 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:3000 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:3500 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:4000 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:4500 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:5000 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:5500 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:6000 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:6500 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:7000 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:7500 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)] map[bottomSlashTransform:matrix(1, 0, 0, 1, 0, 0) canvasOpacity:1 heroOpacity:1 scrollY:8000 topSlashClip:polygon(0px 0px, 100% 0px, 50% 100%, 0px 100%) topSlashTransform:matrix(1, 0, 0, 1, 0, 0)]]
+I will run a script to detect exactly which elements have their inline style attributes modified when we scroll down the page to scrollY = 4000px.
+
+I will execute the corrected style change detection script.
+
+(() => {
+  const elements = Array.from(document.querySelectorAll('*'));
+  const before = elements.map(el => ({ el, style: el.style.cssText }));
+  
+  window.scrollTo(0, 4000);
+  
+  const changes = before.map((item) => {
+    let desc = item.el.tagName.toLowerCase();
+    if (item.el.id) desc += '#' + item.el.id;
+    if (item.el.className) desc += '.' + Array.from(item.el.classList).join('.');
+    return {
+      desc,
+      before: item.style,
+      after: item.el.style.cssText
+    };
+  }).filter(x => x.before !== x.after);
+  
+  window.scrollTo(0, 0);
+  return changes;
+})()
+JavaScript Result
+
+[]

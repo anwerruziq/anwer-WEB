@@ -1,44 +1,84 @@
-
+import { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import './Contact.css';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const Contact = () => {
+  const sectionRef = useRef(null);
 
-    return (
-        <section id="contact" className="contact">
-            <div className="container">
-                <h2 className="section-title">
-                    تواصل <span className="highlight">معي</span>
-                </h2>
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo('.contact-terminal',
+        { y: 30, opacity: 0 },
+        {
+          y: 0, opacity: 1, duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 80%' }
+        }
+      );
 
-                <div className="contact-grid">
-                    <div className="contact-info">
-                        <h3 className="contact-subtitle">دعنا نبني شيئاً مذهلاً</h3>
-                        <p className="contact-description">
-                            أنا متاح دائماً للمشاريع الجديدة والتعاون الإبداعي. لا تتردد في مراسلتي!
-                        </p>
+      gsap.fromTo('.comm-link',
+        { x: 20, opacity: 0 },
+        {
+          x: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: 'power2.out',
+          scrollTrigger: { trigger: '.terminal-links', start: 'top 85%' }
+        }
+      );
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
 
-                        <div className="floating-icons-container">
-                            <a href="https://www.instagram.com/a_r.coder?igsh=MTFuMzhwdHRsb2t4dA==" className="floating-button float-1" target="_blank" rel="noopener noreferrer">
-                                <i className='bx bxl-instagram btn-icon-floating'></i>
-                            </a>
-                            <a href="https://www.facebook.com/anwar.ruziq?mibextid=ZbWKwL" className="floating-button float-2" target="_blank" rel="noopener noreferrer">
-                                <i className='bx bxl-facebook btn-icon-floating'></i>
-                            </a>
-                            <a href="https://github.com/anwerruziq" className="floating-button float-3" target="_blank" rel="noopener noreferrer">
-                                <i className='bx bxl-github btn-icon-floating'></i>
-                            </a>
-                            <a href="https://wa.me/967778568777" className="floating-button float-4" target="_blank" rel="noopener noreferrer">
-                                <i className='bx bxl-whatsapp btn-icon-floating'></i>
-                            </a>
-                        </div>
+  const contactLinks = [
+    { label: 'EMAIL', value: 'anwer.ruziq@gmail.com', href: 'mailto:anwer.ruziq@gmail.com', icon: 'bx bx-envelope' },
+    { label: 'PHONE', value: '+1234567890', href: 'tel:+1234567890', icon: 'bx bx-phone' },
+    { label: 'WHATSAPP', value: 'Chat via WhatsApp', href: '#', icon: 'bx bxl-whatsapp' },
+    { label: 'GITHUB', value: '@anwerruziq', href: 'https://github.com/anwerruziq', icon: 'bx bxl-github' },
+    { label: 'INSTAGRAM', value: '@ar.coder', href: '#', icon: 'bx bxl-instagram' },
+    { label: 'FACEBOOK', value: 'AR Coder', href: '#', icon: 'bx bxl-facebook' },
+  ];
 
-                    </div>
+  return (
+    <section id="contact" className="contact-section" ref={sectionRef}>
+      <div className="container">
+        
+        <div className="hud-label">
+          <i className="bx bx-link-alt hud-label-icon"></i>
+          <span className="hud-label-text">COMMUNICATIONS LINK</span>
+          <div className="hud-label-line" />
+        </div>
 
+        <div className="contact-terminal hud-border">
+          <div className="terminal-header">
+            <span className="terminal-title">SYS.MSG.PROTOCOL</span>
+            <span className="terminal-status">SECURE CONNECTION</span>
+          </div>
 
-                </div>
+          <div className="terminal-body">
+            <p className="terminal-text">
+              <span className="terminal-prompt">{'>'}</span> يتم فحص قنوات الاتصال المتاحة...
+            </p>
+            <p className="terminal-text dim">
+              <span className="terminal-prompt">{'>'}</span> تم العثور على 6 قنوات للاتصال المباشر.
+            </p>
+
+            <div className="terminal-links">
+              {contactLinks.map((link, idx) => (
+                <a key={idx} href={link.href} target="_blank" rel="noopener noreferrer" className="comm-link">
+                  <div className="comm-label">
+                    <i className={`${link.icon} comm-icon`}></i>
+                    [{link.label}]
+                  </div>
+                  <div className="comm-value">{link.value}</div>
+                </a>
+              ))}
             </div>
-        </section>
-    );
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
 };
 
 export default Contact;

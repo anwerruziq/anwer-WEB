@@ -4,69 +4,102 @@ import './Navbar.css';
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [scrollPct, setScrollPct] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const scrolled = window.scrollY > 60;
+      setIsScrolled(scrolled);
+
+      const doc = document.documentElement;
+      const pct = (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100;
+      setScrollPct(Math.round(Math.min(pct, 100)));
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
       setIsMobileMenuOpen(false);
     }
   };
 
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
-      <div className="container nav-content">
-        <a href="#home" className="nav-logo" onClick={(e) => {
-          e.preventDefault();
-          scrollToSection('home');
-        }}>
-          <img src="/1770382658096-removebg-preview.png" alt="Anwer Logo" className="logo-img" />
-        </a>
-
-        <ul className="nav-links desktop-nav">
-          <li><a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>من أنا</a></li>
-          <li><a href="#skills" onClick={(e) => { e.preventDefault(); scrollToSection('skills'); }}>مهاراتي</a></li>
-          <li><a href="#projects" onClick={(e) => { e.preventDefault(); scrollToSection('projects'); }}>مشاريعي</a></li>
-          <li><a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>تواصل معي</a></li>
-        </ul>
-
-        <button
-          className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+    <>
+      {}
+      <div className="nav-xp-bar">
+        <div className="nav-xp-fill" style={{ width: `${scrollPct}%` }} />
+        <span className="nav-xp-text">{scrollPct}%</span>
       </div>
 
-      {/* Overlay for blur effect */}
+      <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+        {}
+        <button className="nav-brand" onClick={() => scrollToSection('home')}>
+          <i className="bx bx-joystick nav-brand-icon"></i>
+          AR.CODER
+        </button>
+
+        {}
+        <ul className="nav-links desktop-nav">
+          {[
+            { label: 'من أنا', id: 'about', tag: '01' },
+            { label: 'مهاراتي', id: 'skills', tag: '02' },
+            { label: 'مشاريعي', id: 'projects', tag: '03' },
+            { label: 'تواصل', id: 'contact', tag: '04' },
+          ].map(({ label, id, tag }) => (
+            <li key={id}>
+              <button
+                className="nav-link-btn"
+                onClick={() => scrollToSection(id)}
+              >
+                <span className="nav-link-tag">{tag}</span>
+                {label}
+              </button>
+            </li>
+          ))}
+        </ul>
+
+        {}
+        <button
+          className={`hamburger ${isMobileMenuOpen ? 'active' : ''}`}
+          onClick={() => setIsMobileMenuOpen((o) => !o)}
+          aria-label="Toggle menu"
+        >
+          <span /><span /><span />
+        </button>
+      </nav>
+
+      {}
       <div
         className={`nav-overlay ${isMobileMenuOpen ? 'active' : ''}`}
         onClick={() => setIsMobileMenuOpen(false)}
-      ></div>
+      />
 
+      {}
       <div className={`mobile-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-        <div className="mobile-menu-logo">
-          <img src="/1770382658096-removebg-preview.png" alt="Anwer Logo" className="logo-img" />
-        </div>
+        <button className="mobile-menu-close" onClick={() => setIsMobileMenuOpen(false)}>
+          <i className="bx bx-x"></i>
+        </button>
         <ul className="mobile-nav-links">
-          <li><a href="#about" onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); scrollToSection('about'); }}>من أنا</a></li>
-          <li><a href="#skills" onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); scrollToSection('skills'); }}>مهاراتي</a></li>
-          <li><a href="#projects" onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); scrollToSection('projects'); }}>مشاريعي</a></li>
-          <li><a href="#contact" onClick={(e) => { e.preventDefault(); setIsMobileMenuOpen(false); scrollToSection('contact'); }}>تواصل معي</a></li>
+          {[
+            { label: 'من أنا', id: 'about', tag: '01' },
+            { label: 'مهاراتي', id: 'skills', tag: '02' },
+            { label: 'مشاريعي', id: 'projects', tag: '03' },
+            { label: 'تواصل', id: 'contact', tag: '04' },
+          ].map(({ label, id, tag }) => (
+            <li key={id}>
+              <button onClick={() => scrollToSection(id)}>
+                <span className="mobile-link-tag">{tag}</span>
+                {label}
+              </button>
+            </li>
+          ))}
         </ul>
       </div>
-    </nav>
+    </>
   );
 };
 

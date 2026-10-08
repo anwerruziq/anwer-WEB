@@ -1,6 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Inter:wght@300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Changa:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Orbitron:wght@400;500;600;700;800;900&family=Changa:wght@400;500;600;700&family=Press+Start+2P&display=swap');
 
 @font-face {
   font-family: 'Al-Abdali';
@@ -16,28 +14,41 @@
 }
 
 :root {
-  --font-pixel: 'VT323', monospace;
-  --font-heading: 'VT323', 'Al-Abdali', monospace;
-  --font-body: 'VT323', 'Changa', sans-serif;
+  --font-heading: 'Orbitron', sans-serif;
+  --font-body: 'Changa', sans-serif;
+  --font-mono: 'Press Start 2P', monospace;
+
   
-  /* Colors - Monochromatic (Black, White, Gray) */
-  --bg-primary: #000000;
-  --bg-secondary: #0a0a0a;
-  --bg-tertiary: #121212;
+  --neon-cyan: #78a2b5;
+  --neon-magenta: #9578b5;
+  --neon-purple: #787fb5;
+  --neon-green: #78b590;
+  --neon-yellow: #b5ad78;
+  --neon-orange: #b58d78;
 
-  --accent-primary: #ffffff;
-  --accent-secondary: #808080;
-  --accent-gradient: linear-gradient(135deg, #ffffff 0%, #404040 100%);
+  --bg-primary: #050608;
+  --bg-secondary: #0a0c10;
+  --bg-tertiary: #11141a;
+  --bg-card: rgba(10, 12, 16, 0.85);
 
-  --text-primary: #ffffff;
-  --text-secondary: #b0b0b0;
-  --text-tertiary: #606060;
+  --accent-primary: var(--neon-cyan);
+  --accent-secondary: var(--neon-magenta);
+  --accent-gradient: linear-gradient(135deg, var(--neon-cyan) 0%, var(--neon-purple) 50%, var(--neon-magenta) 100%);
 
-  /* Glass effect - Refined for monochromatic */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-primary: #d0d4dc;
+  --text-secondary: #828a9a;
+  --text-tertiary: #525a6a;
 
-  /* Spacing */
+  
+  --glass-bg: rgba(120, 162, 181, 0.03);
+  --glass-border: rgba(120, 162, 181, 0.15);
+
+  
+  --glow-cyan: 0 0 10px rgba(120, 162, 181, 0.1), 0 0 20px rgba(120, 162, 181, 0.05);
+  --glow-magenta: 0 0 10px rgba(149, 120, 181, 0.1), 0 0 20px rgba(149, 120, 181, 0.05);
+  --glow-purple: 0 0 10px rgba(120, 127, 181, 0.1), 0 0 20px rgba(120, 127, 181, 0.05);
+
+  
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 1.5rem;
@@ -46,21 +57,13 @@
   --spacing-2xl: 4rem;
   --spacing-3xl: 6rem;
 
-  /* Border radius */
-  --radius-sm: 0.5rem;
-  --radius-md: 1rem;
-  --radius-lg: 1.5rem;
-  --radius-full: 9999px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 
-  /* Transitions */
   --transition-fast: 0.2s ease;
   --transition-base: 0.3s ease;
   --transition-slow: 0.5s ease;
-
-  /* Shadows */
-  --shadow-glow: 0 0 15px rgba(255, 255, 255, 0.1);
-  --shadow-glow-hover: 0 0 25px rgba(255, 255, 255, 0.2);
-  --shadow-card: 0 4px 30px rgba(0, 0, 0, 0.8);
 }
 
 [lang="ar"] {
@@ -79,52 +82,45 @@ body {
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
-/* Typography */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.section-title {
+
+h1, h2, h3, h4, h5, h6, .section-title {
   font-weight: 700;
   line-height: 1.2;
   font-family: var(--font-heading);
 }
 
-h1 {
-  font-size: clamp(2.5rem, 8vw, 5rem);
-  font-weight: 800;
+h1 { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 800; }
+h2 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; }
+h3 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 600; }
+p  { font-size: clamp(1rem, 2vw, 1.125rem); line-height: 1.7; color: var(--text-secondary); }
+
+
+
+
+.neon-text-cyan {
+  color: var(--neon-cyan);
+  text-shadow: 0 0 4px rgba(120, 162, 181, 0.4);
+}
+.neon-text-magenta {
+  color: var(--neon-magenta);
+  text-shadow: 0 0 4px rgba(149, 120, 181, 0.4);
 }
 
-h2 {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
+
+.hud-border {
+  --cut: 12px;
+  clip-path: polygon(
+    var(--cut) 0%, calc(100% - var(--cut)) 0%,
+    100% var(--cut), 100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%, var(--cut) 100%,
+    0% calc(100% - var(--cut)), 0% var(--cut)
+  );
 }
 
-h3 {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  font-weight: 600;
-}
 
-p {
-  font-size: clamp(1rem, 2vw, 1.125rem);
-  line-height: 1.7;
-  color: var(--text-secondary);
-}
-
-/* Glassmorphism utility */
-.glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid var(--glass-border);
-}
-
-/* Gradient text */
 .gradient-text {
   background: var(--accent-gradient);
   -webkit-background-clip: text;
@@ -132,96 +128,83 @@ p {
   background-clip: text;
 }
 
-/* Container */
+
+@keyframes glitch-1 {
+  0%, 100% { clip-path: inset(0 0 90% 0); transform: translate(0); }
+  20%      { clip-path: inset(30% 0 40% 0); transform: translate(-2px, 1px); }
+  40%      { clip-path: inset(60% 0 10% 0); transform: translate(2px, -1px); }
+  60%      { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 0.5px); }
+  80%      { clip-path: inset(80% 0 5% 0);  transform: translate(1px, -0.5px); }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { clip-path: inset(90% 0 0 0);  transform: translate(0); }
+  20%      { clip-path: inset(20% 0 50% 0); transform: translate(1.5px, -1px); }
+  40%      { clip-path: inset(50% 0 20% 0); transform: translate(-1.5px, 1px); }
+  60%      { clip-path: inset(70% 0 5% 0);  transform: translate(1px, 0.5px); }
+  80%      { clip-path: inset(5% 0 60% 0);  transform: translate(-1px, -0.5px); }
+}
+
+@keyframes scanline {
+  0%   { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes neon-pulse {
+  0%, 100% { opacity: 0.8; }
+  50%      { opacity: 0.5; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(120, 162, 181, 0.2); box-shadow: var(--glow-cyan); }
+  50%      { border-color: rgba(149, 120, 181, 0.2); box-shadow: var(--glow-purple); }
+}
+
+@keyframes grid-move {
+  0%   { background-position: 0 0; }
+  100% { background-position: 0 40px; }
+}
+
+
+section {
+  padding: 0;
+  position: relative;
+  z-index: 2;
+}
+
+
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--spacing-md);
 }
-
 @media (min-width: 768px) {
-  .container {
-    padding: 0 var(--spacing-lg);
-  }
+  .container { padding: 0 var(--spacing-lg); }
 }
 
-/* Section spacing */
-section {
-  padding: var(--spacing-3xl) 0;
-  position: relative;
-  z-index: 2;
-}
 
-@media (max-width: 767px) {
-  section {
-    padding: var(--spacing-2xl) 0;
-  }
-}
-
-/* Buttons */
-.btn {
-  display: inline-block;
-  padding: var(--spacing-sm) var(--spacing-lg);
-  font-size: 1rem;
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: var(--radius-sm);
-  /* More squared for minimalist feel */
-  cursor: pointer;
-  transition: all var(--transition-base);
-  border: none;
-  font-family: inherit;
-  min-width: 150px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-primary {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
-.btn-primary:hover {
-  background: #e0e0e0;
-  transform: translateY(-2px);
-}
-
-.btn-outline {
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--text-primary);
-}
-
-.btn-outline:hover {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-}
-
-/* Spline Container */
-.spline-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-}
-
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
 }
-
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #333;
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-magenta));
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
+
+::selection {
+  background: rgba(120, 162, 181, 0.25);
+  color: var(--neon-cyan);
 }
