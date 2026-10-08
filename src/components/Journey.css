@@ -154,22 +154,28 @@
 
 
 @media (max-width: 768px) {
+    .journey {
+        padding: 60px 0;
+    }
+    
     .journey-timeline {
         padding: var(--spacing-md);
         box-shadow: 
             inset 0 0 0 2px #000,
             inset 0 0 0 4px #fff;
         border-width: 2px;
+        margin-top: var(--spacing-lg);
     }
     
     .journey-timeline::before {
         top: -12px;
-        font-size: 1.2rem;
+        font-size: 1rem;
+        left: 10px;
     }
 
     .journey-item {
-        gap: var(--spacing-md);
-        margin-bottom: var(--spacing-lg);
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-md);
     }
 
     .journey-marker {
@@ -182,11 +188,15 @@
         border-width: 2px;
     }
 
+    .journey-year {
+        font-size: 1.2rem;
+    }
+
     .journey-title {
-        font-size: 1.6rem;
+        font-size: 1.2rem;
     }
 
     .journey-description {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 }

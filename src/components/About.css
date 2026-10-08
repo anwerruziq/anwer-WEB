@@ -152,14 +152,44 @@
 
 @media (max-width: 768px) {
   .about-section {
-    padding: 80px 0;
+    padding: 60px 0;
+  }
+
+  .about-content {
+    gap: 32px;
+  }
+
+  .hud-label {
+    margin-bottom: 24px;
+  }
+
+  .about-title-glitch {
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
   }
 
   .about-text-box {
-    padding: 24px;
+    padding: 16px;
+    gap: 12px;
+  }
+
+  p {
+    font-size: 0.95rem;
   }
 
   .about-stat-block {
-    padding: 20px;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .stat-icon {
+    font-size: 1.5rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.6rem;
   }
 }

@@ -161,18 +161,41 @@
 
 @media (max-width: 768px) {
   .projects-section {
-    padding: 80px 0;
+    padding: 60px 0;
+  }
+  .missions-list {
+    gap: 24px;
+  }
+  .mission-header {
+    padding: 12px 16px;
+  }
+  .mission-body {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+  .mission-title-ar {
+    font-size: 1.25rem;
+  }
+  .mission-desc {
+    font-size: 0.85rem;
+  }
+  .tech-badge {
+    padding: 4px 8px;
+    font-size: 0.55rem;
   }
   .mission-footer {
     flex-direction: column;
     gap: 16px;
     align-items: stretch;
     text-align: center;
+    padding: 16px;
   }
   .mission-actions {
     flex-direction: column;
+    gap: 12px;
   }
   .btn-primary, .btn-secondary {
     text-align: center;
+    padding: 10px 16px;
   }
 }

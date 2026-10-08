@@ -183,25 +183,43 @@
 @media (max-width: 1024px) {
   .radar-container {
     aspect-ratio: auto;
-    padding: 64px 24px;
+    padding: 48px 24px;
   }
 }
 
 
 @media (max-width: 768px) {
   .skills-section {
-    padding: 80px 0;
+    padding: 60px 0;
   }
   .radar-container {
-    padding: 48px 16px;
+    padding: 24px 16px;
+    margin: 0 -12px;
+  }
+  .radar-svg {
+    max-width: 280px;
+  }
+  .radar-labels-overlay {
+    max-width: 280px;
   }
   .radar-skill-name {
-    font-size: 0.65rem;
+    font-size: 0.55rem;
   }
   .radar-skill-number {
-    font-size: 1rem;
+    font-size: 0.85rem;
   }
   .quest-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .quest-card {
+    padding: 16px;
+    gap: 12px;
+  }
+  .quest-title {
+    font-size: 0.9rem;
+  }
+  .quest-desc {
+    font-size: 0.8rem;
   }
 }
