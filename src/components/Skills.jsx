@@ -5,6 +5,8 @@ import './Skills.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const TOGGLE = 'play reverse play reverse';
+
 
 const skillsData = [
   { name: 'React.js', target: 95.0 },
@@ -70,15 +72,33 @@ const Skills = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      
+
+      // HUD label sweeps in
+      gsap.fromTo('.hud-label',
+        { opacity: 0, x: -80, clipPath: 'inset(0 100% 0 0)' },
+        {
+          opacity: 1, x: 0, clipPath: 'inset(0 0% 0 0)',
+          duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: 'top 25%', toggleActions: TOGGLE }
+        }
+      );
+
+      // Radar container — boot up flash
+      gsap.fromTo('.radar-container',
+        { opacity: 0, scale: 0.8, filter: 'brightness(3) hue-rotate(90deg)' },
+        {
+          opacity: 1, scale: 1, filter: 'brightness(1) hue-rotate(0deg)',
+          duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: '.radar-container', start: 'top 80%', end: 'top 30%', toggleActions: TOGGLE }
+        }
+      );
       
       const zeroPoints = Array.from({ length: 5 }).map(() => `${CENTER},${CENTER}`).join(' ');
       if (polygonRef.current) polygonRef.current.setAttribute('points', zeroPoints);
 
-      
       const skillValues = { s0: 0, s1: 0, s2: 0, s3: 0, s4: 0 };
 
-      
+      // Radar chart powers up
       gsap.to(skillValues, {
         s0: skillsData[0].target,
         s1: skillsData[1].target,
@@ -90,9 +110,10 @@ const Skills = () => {
         scrollTrigger: {
           trigger: '.radar-container',
           start: 'top 75%',
+          end: 'top 25%',
+          toggleActions: TOGGLE,
         },
         onUpdate: () => {
-          
           const currentValues = [skillValues.s0, skillValues.s1, skillValues.s2, skillValues.s3, skillValues.s4];
           
           currentValues.forEach((val, i) => {
@@ -101,7 +122,6 @@ const Skills = () => {
             }
           });
 
-          
           const newPoints = currentValues.map((val, i) => {
             const r = (val / 100) * RADIUS;
             const p = getPoint(i, 5, r);
@@ -114,14 +134,24 @@ const Skills = () => {
         }
       });
 
-      
-      gsap.fromTo('.quest-card', 
-        { y: 30, opacity: 0, scale: 0.95 }, 
-        {
-          y: 0, opacity: 1, scale: 1, duration: 0.5, stagger: 0.1, ease: 'back.out(1.2)',
-          scrollTrigger: { trigger: '.quest-grid', start: 'top 85%' },
-        }
-      );
+      // Quest cards — spawn like game items with power-up effect
+      gsap.utils.toArray('.quest-card').forEach((card, i) => {
+        const cardTl = gsap.timeline({
+          scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 38%', toggleActions: TOGGLE }
+        });
+
+        cardTl.fromTo(card,
+          { y: 40, opacity: 0, scale: 0.8, rotation: i % 2 === 0 ? -3 : 3 },
+          { y: 0, opacity: 1, scale: 1, rotation: 0, duration: 0.6, ease: 'back.out(2)' }
+        );
+
+        cardTl.fromTo(card,
+          { boxShadow: '0 0 30px rgba(120,162,181,0.4)' },
+          { boxShadow: '0 0 0px rgba(120,162,181,0)', duration: 0.5, ease: 'power2.out' },
+          '-=0.3'
+        );
+      });
+
     }, sectionRef);
 
     return () => ctx.revert();

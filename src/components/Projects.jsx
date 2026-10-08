@@ -5,6 +5,8 @@ import './Projects.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const TOGGLE = 'play reverse play reverse';
+
 const projects = [
   {
     id: 'Q-01',
@@ -69,17 +71,50 @@ const Projects = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+
+      // HUD label sweeps in
+      gsap.fromTo('.hud-label',
+        { opacity: 0, x: -80, clipPath: 'inset(0 100% 0 0)' },
+        {
+          opacity: 1, x: 0, clipPath: 'inset(0 0% 0 0)',
+          duration: 0.8, ease: 'power3.out',
+          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', end: 'top 25%', toggleActions: TOGGLE }
+        }
+      );
+
+      // Mission cards — materialize like spawning game objects
       gsap.utils.toArray('.mission-card').forEach((card, i) => {
-        gsap.fromTo(card,
-          { y: 50, opacity: 0, scale: 0.98 },
+        const cardTl = gsap.timeline({
+          scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 38%', toggleActions: TOGGLE }
+        });
+
+        // Card entrance with skew
+        cardTl.fromTo(card,
+          { y: 60, opacity: 0, scale: 0.92, skewX: i % 2 === 0 ? -3 : 3 },
           {
-            y: 0, opacity: 1, scale: 1,
-            duration: 0.6,
-            ease: 'power2.out',
-            scrollTrigger: { trigger: card, start: 'top 85%' },
+            y: 0, opacity: 1, scale: 1, skewX: 0,
+            duration: 0.8, ease: 'power3.out',
           }
         );
+
+        // Glitch flash on appear
+        cardTl.fromTo(card,
+          { filter: 'brightness(2.5) hue-rotate(60deg)' },
+          { filter: 'brightness(1) hue-rotate(0deg)', duration: 0.3, ease: 'power2.out' },
+          '-=0.4'
+        );
+
+        // Rank badge pops
+        const rank = card.querySelector('.mission-rank');
+        if (rank) {
+          cardTl.fromTo(rank,
+            { scale: 0, rotation: -20 },
+            { scale: 1, rotation: 0, duration: 0.5, ease: 'back.out(3)' },
+            '-=0.3'
+          );
+        }
       });
+
     }, sectionRef);
 
     return () => ctx.revert();
